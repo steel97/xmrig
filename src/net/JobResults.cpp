@@ -33,6 +33,8 @@
 #include "net/JobResult.h"
 
 
+
+
 #ifdef XMRIG_ALGO_RANDOMX
 #   include "crypto/randomx/randomx.h"
 #   include "crypto/rx/Rx.h"
@@ -60,6 +62,9 @@
 #include <memory>
 #include <mutex>
 #include <uv.h>
+#include "../base/tools/bswap_64.h"
+#include <cstdint>
+
 
 
 namespace xmrig {

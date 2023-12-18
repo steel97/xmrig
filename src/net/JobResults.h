@@ -30,7 +30,6 @@
 #include <cstddef>
 #include <cstdint>
 
-
 namespace xmrig {
 
 
@@ -48,6 +47,7 @@ public:
     static void submit(const Job &job, uint32_t nonce, const uint8_t *result);
     static void submit(const Job& job, uint32_t nonce, const uint8_t* result, const uint8_t* miner_signature);
     static void submit(const JobResult &result);
+    inline uint64_t actualDiff(const Job& job) const;
 
 #   if defined(XMRIG_FEATURE_OPENCL) || defined(XMRIG_FEATURE_CUDA)
     static void submit(const Job &job, uint32_t *results, size_t count, uint32_t device_index);
