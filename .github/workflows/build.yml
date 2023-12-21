@@ -36,7 +36,8 @@ jobs:
           ./build_deps.sh && cd ../build
           cmake .. -DXMRIG_DEPS=scripts/deps
           make -j$(nproc)
+          tree .
       - uses: actions/upload-artifact@v3
         with:
           name: xmrig-veil linux x86_64
-          path: build/Release 
+          path: xmrig 
