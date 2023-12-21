@@ -40,4 +40,4 @@ jobs:
       - uses: actions/upload-artifact@v3
         with:
           name: xmrig-veil linux x86_64
-          path: xmrig 
+          path: ./build/xmrig 
