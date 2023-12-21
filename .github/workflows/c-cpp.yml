@@ -8,7 +8,7 @@ jobs:
     runs-on: windows-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@master
+        uses: actions/checkout@v2
       - name: Checkout deps
         run: git clone https://github.com/xmrig/xmrig-deps.git
       - name: Build project on Windows
@@ -17,16 +17,16 @@ jobs:
           make -j2
 
   build_lin:
-    name: Ubuntu build
+    name: Linux build
     runs-on: ubuntu-latest
     steps:
-      - name: Prepare Ubuntu tools
+      - name: Prepare Linux tools
         run: |
           sudo apt update
           sudo apt install -y git build-essential cmake libuv1-dev libssl-dev libhwloc-dev
       - name: Checkout code
-        uses: actions/checkout@master
-      - name: Build project on Ubuntu
+        uses: actions/checkout@v2
+      - name: Build project on Linux
         run: |
           cmake .
           make -j$(nproc)
@@ -36,9 +36,11 @@ jobs:
     runs-on: macos-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@master
+        uses: actions/checkout@v2
       - name: Checkout deps
         run: git clone https://github.com/xmrig/xmrig-deps.git
+      - name: Install HWLOC on macOS
+        run: brew install hwloc
       - name: Build project on macOS
         run: |
           cmake .
