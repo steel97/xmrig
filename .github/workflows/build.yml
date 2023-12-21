@@ -1,0 +1,61 @@
+on: push
+
+name: Build
+
+jobs:
+  windows:
+    name: windows x86_64
+    runs-on: windows-2019
+    steps:
+      - uses: actions/checkout@v4
+      - name: Prepare dependencies
+        run: git clone https://github.com/xmrig/xmrig-deps.git
+      - name: Build
+        run: |
+          $DepsPath = $(get-location).Path + '/xmrig-deps/msvc2019/x64';
+          $DepsPath = $DepsPath.replace('\','/');
+          mkdir build && cd build
+          cmake .. -G "Visual Studio 16 2019" -A x64 -DXMRIG_DEPS="$DepsPath"
+          cmake --build . --config Release
+      - uses: actions/upload-artifact@v3
+        with:
+          name: xmrig-veil win x86_64
+          path: build/Release
+
+  linux:
+    name: linux x86_64
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Prepare dependencies
+        run: |
+          sudo apt update
+          sudo apt install git build-essential cmake automake libtool autoconf
+      - name: Build
+        run: |
+          mkdir build && cd scripts
+          ./build_deps.sh && cd ../build
+          cmake .. -DXMRIG_DEPS=scripts/deps
+          make -j$(nproc)
+          tree .
+      - uses: actions/upload-artifact@v3
+        with:
+          name: xmrig-veil linux x86_64
+          path: ./build/xmrig
+
+  macos:
+    name: macos x86_64
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Prepare dependencies
+        run: |
+          brew install cmake wget automake libtool autoconf
+          mkdir build && cd scripts
+          ./build.hwloc.sh && cd ../build
+          cmake .. -DOPENSSL_ROOT_DIR=$(brew --prefix openssl) -DHWLOC_INCLUDE_DIR=../scripts/deps/include -DHWLOC_LIBRARY=../scripts/deps/lib/libhwloc.a
+          make -j$(sysctl -n hw.logicalcpu)
+      - uses: actions/upload-artifact@v3
+        with:
+          name: xmrig-veil macos x86_64
+          path: ./build/xmrig
