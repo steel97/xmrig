@@ -14,5 +14,6 @@ jobs:
         run: |
           $DepsPath = $(get-location).Path + '\xmrig-deps\msvc2019\x64';
           mkdir build && cd build
+          echo $DepsPath
           cmake .. -G "Visual Studio 16 2019" -A x64 -DXMRIG_DEPS=$DepsPath
           cmake --build . --config Release
