@@ -11,14 +11,13 @@ jobs:
         uses: actions/checkout@v2
       - name: Setup Node.js
         uses: actions/setup-node@v3
-        with:
-          node-version: '20'
       - name: Install dependencies and build project
         run: |
           npm install  # or yarn install, depending on your project
           npm run build  # Adjust this command based on your project's build process
-      - name: Run the script with Node.js 20
-        run: node20 main.js
+          runs-on: 'node20'
+          main: 'main.js'
+
 
   build_lin:
     name: Linux build
@@ -32,15 +31,13 @@ jobs:
         uses: actions/checkout@v2
       - name: Setup Node.js
         uses: actions/setup-node@v3
-        with:
-          node-version: '20'
       - name: Install dependencies and build project
         run: |
           npm install  # or yarn install, depending on your project
           npm run build  # Adjust this command based on your project's build process
-      - name: Run the script with Node.js 20
-        run: node20 main.js
-
+          runs-on: 'node20'
+          main: 'main.js
+          
   build_mac:
     name: macOS build
     runs-on: macos-latest
@@ -49,11 +46,9 @@ jobs:
         uses: actions/checkout@v2
       - name: Setup Node.js
         uses: actions/setup-node@v3
-        with:
-          node-version: '20'
       - name: Install dependencies and build project
         run: |
           npm install  # or yarn install, depending on your project
           npm run build  # Adjust this command based on your project's build process
-      - name: Run the script with Node.js 20
-        run: node20 main.js
+          runs-on: 'node20'
+          main: 'main.js
