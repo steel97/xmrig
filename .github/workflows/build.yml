@@ -16,7 +16,7 @@ jobs:
           $DepsPath = $DepsPath.replace('\','/');
           mkdir build && cd build
           dir $CurrentDir
-          cmake .. -G "Visual Studio 16 2019" -DXMRIG_DEPS="$DepsPath"
+          cmake .. -G "Visual Studio 16 2019" -A x64 -DXMRIG_DEPS="$DepsPath"
           cmake --build . --config Release
       - uses: actions/upload-artifact@v3
         with:
