@@ -9,8 +9,6 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-        with:
-          node-version: '16'  
       - name: Checkout deps
         run: git clone https://github.com/xmrig/xmrig-deps.git
       - name: Build project on Windows
@@ -28,8 +26,6 @@ jobs:
           sudo apt install -y git build-essential cmake libuv1-dev libssl-dev libhwloc-dev
       - name: Checkout code
         uses: actions/checkout@v2
-        with:
-          node-version: '16' 
       - name: Build project on Linux
         run: |
           cmake .
@@ -41,8 +37,6 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-        with:
-          node-version: '16'
       - name: Checkout deps
         run: git clone https://github.com/xmrig/xmrig-deps.git
       - name: Install HWLOC on macOS
