@@ -12,6 +12,7 @@ jobs:
         run: git clone https://github.com/xmrig/xmrig-deps.git
       - name: Build
         run: |
+          SET DEPS=%cd%\xmrig-deps\msvc2019\x64
           mkdir build && cd build
-          cmake .. -G "Visual Studio 16 2019" -A x64 -DXMRIG_DEPS=../xmrig-deps/msvc2019/x64
+          cmake .. -G "Visual Studio 16 2019" -A x64 -DXMRIG_DEPS=%DEPS%
           cmake --build . --config Release
