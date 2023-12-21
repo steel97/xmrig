@@ -4,7 +4,7 @@ name: Build
 
 jobs:
   windows:
-    name: Windows x86_64
+    name: windows x86_64
     runs-on: windows-2019
     steps:
       - uses: actions/checkout@v4
@@ -22,7 +22,8 @@ jobs:
           name: xmrig-veil win x86_64
           path: build/Release
 
-  ubuntu:
+  linux:
+    name: linux x86_64
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -40,4 +41,21 @@ jobs:
       - uses: actions/upload-artifact@v3
         with:
           name: xmrig-veil linux x86_64
-          path: ./build/xmrig 
+          path: ./build/xmrig
+
+  macos:
+    name: macos x86_64
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Prepare dependencies
+        run: |
+          brew install cmake wget automake libtool autoconf
+          mkdir build && cd scripts
+          ./build.hwloc.sh && cd ../build
+          cmake .. -DOPENSSL_ROOT_DIR=$(brew --prefix openssl) -DHWLOC_INCLUDE_DIR=../scripts/deps/include -DHWLOC_LIBRARY=../scripts/deps/lib/libhwloc.a
+          make -j$(sysctl -n hw.logicalcpu)
+      - uses: actions/upload-artifact@v3
+        with:
+          name: xmrig-veil macos x86_64
+          path: ./build/xmrig
