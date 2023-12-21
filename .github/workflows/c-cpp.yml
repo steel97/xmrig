@@ -13,10 +13,8 @@ jobs:
         uses: actions/setup-node@v3
       - name: Install dependencies and build project
         run: |
-          npm install  # or yarn install, depending on your project
-          npm run build  # Adjust this command based on your project's build process
-          runs-on: 'node20'
-          main: 'main.js'
+          npm install  
+          npm run build  
 
 
   build_lin:
@@ -33,10 +31,8 @@ jobs:
         uses: actions/setup-node@v3
       - name: Install dependencies and build project
         run: |
-          npm install  # or yarn install, depending on your project
-          npm run build  # Adjust this command based on your project's build process
-          runs-on: 'node20'
-          main: 'main.js
+          npm install 
+          npm run build  
           
   build_mac:
     name: macOS build
@@ -48,7 +44,6 @@ jobs:
         uses: actions/setup-node@v3
       - name: Install dependencies and build project
         run: |
-          npm install  # or yarn install, depending on your project
-          npm run build  # Adjust this command based on your project's build process
-          runs-on: 'node20'
-          main: 'main.js
+          npm install  
+          npm run build  
+         
