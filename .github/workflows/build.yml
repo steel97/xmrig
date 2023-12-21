@@ -18,3 +18,7 @@ jobs:
           dir $CurrentDir
           cmake .. -G "Visual Studio 16 2019" -DXMRIG_DEPS="$DepsPath"
           cmake --build . --config Release
+      - uses: actions/upload-artifact@v3
+        with:
+          name: Windows
+          path: build/Release
