@@ -15,10 +15,28 @@ jobs:
           $DepsPath = $(get-location).Path + '/xmrig-deps/msvc2019/x64';
           $DepsPath = $DepsPath.replace('\','/');
           mkdir build && cd build
-          dir $CurrentDir
           cmake .. -G "Visual Studio 16 2019" -A x64 -DXMRIG_DEPS="$DepsPath"
           cmake --build . --config Release
       - uses: actions/upload-artifact@v3
         with:
-          name: Windows
+          name: xmrig-veil win x86_64
           path: build/Release
+
+  ubuntu:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Prepare dependencies
+        run: |
+          sudo apt update
+          sudo apt install git build-essential cmake automake libtool autoconf
+      - name: Build
+        run: |
+          mkdir build && cd scripts
+          ./build_deps.sh && cd ../build
+          cmake .. -DXMRIG_DEPS=scripts/deps
+          make -j$(nproc)
+      - uses: actions/upload-artifact@v3
+        with:
+          name: xmrig-veil linux x86_64
+          path: build/Release 
