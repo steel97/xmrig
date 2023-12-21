@@ -9,12 +9,16 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-      - name: Checkout deps
-        run: git clone https://github.com/xmrig/xmrig-deps.git
-      - name: Build project on Windows
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+      - name: Install dependencies and build project
         run: |
-          cmake . -G "MinGW Makefiles" -DXMRIG_DEPS=xmrig-deps\gcc\x64
-          make -j2
+          npm install  # or yarn install, depending on your project
+          npm run build  # Adjust this command based on your project's build process
+      - name: Run the script with Node.js 20
+        run: node20 main.js
 
   build_lin:
     name: Linux build
@@ -26,10 +30,16 @@ jobs:
           sudo apt install -y git build-essential cmake libuv1-dev libssl-dev libhwloc-dev
       - name: Checkout code
         uses: actions/checkout@v2
-      - name: Build project on Linux
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+      - name: Install dependencies and build project
         run: |
-          cmake .
-          make -j$(nproc)
+          npm install  # or yarn install, depending on your project
+          npm run build  # Adjust this command based on your project's build process
+      - name: Run the script with Node.js 20
+        run: node20 main.js
 
   build_mac:
     name: macOS build
@@ -37,11 +47,13 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-      - name: Checkout deps
-        run: git clone https://github.com/xmrig/xmrig-deps.git
-      - name: Install HWLOC on macOS
-        run: brew install hwloc
-      - name: Build project on macOS
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+      - name: Install dependencies and build project
         run: |
-          cmake .
-          make -j$(sysctl -n hw.logicalcpu)
+          npm install  # or yarn install, depending on your project
+          npm run build  # Adjust this command based on your project's build process
+      - name: Run the script with Node.js 20
+        run: node20 main.js
